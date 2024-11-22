@@ -31,9 +31,11 @@ def solve_nqueens(board, col, n, solutions):
             for j in range(n):
                 if board[i][j] == 1:
                     solution.append([i, j])
-        solutions.append(solution)
+        # Sort solutions to match expected output order
+        solutions.append(sorted(solution, key=lambda x: x[0]))
         return
 
+    # Try placing queen in each row of the current column
     for i in range(n):
         if is_safe(board, i, col, n):
             board[i][col] = 1
