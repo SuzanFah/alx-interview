@@ -1,0 +1,16 @@
+{
+  "name": "0x06-starwars_api",
+  "version": "1.0.0",
+  "description": "## Overview This project involves creating a script that interacts with the Star Wars API to display characters from Star Wars movies. The script takes a Movie ID as input and prints all characters from that movie.",
+  "main": "0-starwars_characters.js",
+  "dependencies": {
+    "request": "^2.88.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
