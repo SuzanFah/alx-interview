@@ -1,36 +1,28 @@
 #!/usr/bin/python3
-"""Prime Game Module"""
+"""Prime game module.
+"""
 
 
 def isWinner(x, nums):
+    """Determines the winner of a prime game session with `x` rounds.
     """
-    Determines winner of Prime Game
-    """
-    if not nums or x < 1:
+    if x < 1 or not nums:
         return None
-
-    max_num = max(nums)
-    sieve = [True] * (max_num + 1)
-    sieve[0] = sieve[1] = False
-
-    for i in range(2, int(max_num ** 0.5) + 1):
-        if sieve[i]:
-            for j in range(i*i, max_num + 1, i):
-                sieve[j] = False
-
-    maria_wins = 0
-    ben_wins = 0
-
-    for n in nums:
-        prime_count = sum(1 for i in range(2, n + 1) if sieve[i])
-        if prime_count % 2 == 0:
-            ben_wins += 1
-        else:
-            maria_wins += 1
-
-    if maria_wins > ben_wins:
-        return "Maria"
-    elif ben_wins > maria_wins:
-        return "Ben"
-    return None
-
+    marias_wins, bens_wins = 0, 0
+    # generate primes with a limit of the maximum number in nums
+    n = max(nums)
+    primes = [True for _ in range(1, n + 1, 1)]
+    primes[0] = False
+    for i, is_prime in enumerate(primes, 1):
+        if i == 1 or not is_prime:
+            continue
+        for j in range(i + i, n + 1, i):
+            primes[j - 1] = False
+    # filter the number of primes less than n in nums for each round
+    for _, n in zip(range(x), nums):
+        primes_count = len(list(filter(lambda x: x, primes[0: n])))
+        bens_wins += primes_count % 2 == 0
+        marias_wins += primes_count % 2 == 1
+    if marias_wins == bens_wins:
+        return None
+    return 'Maria' if marias_wins > bens_wins else 'Ben'
